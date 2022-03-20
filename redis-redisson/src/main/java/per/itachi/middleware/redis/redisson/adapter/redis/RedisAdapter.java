@@ -1,5 +1,6 @@
 package per.itachi.middleware.redis.redisson.adapter.redis;
 
+import java.util.concurrent.locks.Lock;
 import javax.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RLock;
@@ -16,8 +17,21 @@ public class RedisAdapter {
 
     @PostConstruct
     public void init() {
+//        redissonClient.reactive();
         log.info("Started locking. ");
+//        RLock rLock = redissonClient.getLock("hcp:lock:game:1");
+//        rLock.lock();
+//        rLock.lock();
+//        try {
+//        }
+//        finally {
+//            rLock.unlock();
+//        }
+    }
+
+    public Lock getRedissonLock() {
         RLock rLock = redissonClient.getLock("hcp:lock:game:1");
-        rLock.lock();redissonClient.reactive();
+        rLock.lock();
+        return rLock;
     }
 }
